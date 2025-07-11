@@ -11,43 +11,43 @@ if [ "x${is_Raspberry}" != "xRaspberry" ] ; then
   exit 1
 fi
 
-ver="1.0"
+#ver="1.0"
 
 
 # we create a dir with this version to ensure that 'dkms remove' won't delete
 # the sources during kernel updates
-marker="0.0.0"
+#marker="0.0.0"
 
 apt update
-apt-get -y install raspberrypi-kernel-headers #raspberrypi-kernel 
-apt-get -y install  dkms git i2c-tools libasound2-plugins
+#apt-get -y install raspberrypi-kernel-headers #raspberrypi-kernel 
+#apt-get -y install  dkms git i2c-tools libasound2-plugins
 
 # locate currently installed kernels (may be different to running kernel if
 # it's just been updated)
-kernels=$(ls /lib/modules | sed "s/^/-k /")
-uname_r=$(uname -r)
+#kernels=$(ls /lib/modules | sed "s/^/-k /")
+#uname_r=$(uname -r)
 
-function install_module {
-  src=$1
-  mod=$2
+#function install_module {
+#  src=$1
+#  mod=$2
 
-  if [[ -d /var/lib/dkms/$mod/$ver/$marker ]]; then
-    rmdir /var/lib/dkms/$mod/$ver/$marker
-  fi
-
-  if [[ -e /usr/src/$mod-$ver || -e /var/lib/dkms/$mod/$ver ]]; then
-    dkms remove --force -m $mod -v $ver --all
-    rm -rf /usr/src/$mod-$ver
-  fi
-  mkdir -p /usr/src/$mod-$ver
-  cp -a $src/* /usr/src/$mod-$ver/
-  dkms add -m $mod -v $ver
-  dkms build $uname_r -m $mod -v $ver && dkms install --force $uname_r -m $mod -v $ver
-
-  mkdir -p /var/lib/dkms/$mod/$ver/$marker
-}
-
-install_module "./" "wm8960-soundcard"
+#  if [[ -d /var/lib/dkms/$mod/$ver/$marker ]]; then
+#    rmdir /var/lib/dkms/$mod/$ver/$marker
+#  fi
+#
+#  if [[ -e /usr/src/$mod-$ver || -e /var/lib/dkms/$mod/$ver ]]; then
+#    dkms remove --force -m $mod -v $ver --all
+#    rm -rf /usr/src/$mod-$ver
+#  fi
+#  mkdir -p /usr/src/$mod-$ver
+#  cp -a $src/* /usr/src/$mod-$ver/
+#  dkms add -m $mod -v $ver
+#  dkms build $uname_r -m $mod -v $ver && dkms install --force $uname_r -m $mod -v $ver
+#
+#  mkdir -p /var/lib/dkms/$mod/$ver/$marker
+#}
+#
+#install_module "./" "wm8960-soundcard"
 
 # install dtbos
 cp wm8960-soundcard.dtbo /boot/overlays
@@ -63,6 +63,7 @@ grep -q "snd-soc-wm8960-soundcard" /etc/modules || \
   
 #set dtoverlays
 sed -i -e 's:#dtparam=i2c_arm=on:dtparam=i2c_arm=on:g'  /boot/firmware/config.txt || true
+sed -i -e 's:#dtparam=i2s=on:dtparam=i2s=on:g'  /boot/firmware/config.txt || true
 grep -q "dtoverlay=i2s-mmap" /boot/firmware/config.txt || \
   echo "dtoverlay=i2s-mmap" >> /boot/firmware/config.txt
 
