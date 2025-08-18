@@ -50,7 +50,7 @@ apt update
 #install_module "./" "wm8960-soundcard"
 
 # install dtbos
-cp wm8960-soundcard.dtbo /boot/overlays
+#cp wm8960-soundcard.dtbo /boot/overlays
 
 
 #set kernel moduels
@@ -67,8 +67,8 @@ sed -i -e 's:#dtparam=i2s=on:dtparam=i2s=on:g'  /boot/firmware/config.txt || tru
 grep -q "dtoverlay=i2s-mmap" /boot/firmware/config.txt || \
   echo "dtoverlay=i2s-mmap" >> /boot/firmware/config.txt
 
-grep -q "dtparam=i2s=on" /boot/firmware/config.txt || \
-  echo "dtparam=i2s=on" >> /boot/firmware/config.txt
+#grep -q "dtparam=i2s=on" /boot/firmware/config.txt || \
+#  echo "dtparam=i2s=on" >> /boot/firmware/config.txt
 
 grep -q "dtoverlay=wm8960-soundcard" /boot/firmware/config.txt || \
   echo "dtoverlay=wm8960-soundcard" >> /boot/firmware/config.txt
