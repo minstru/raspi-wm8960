@@ -63,11 +63,12 @@ grep -q "snd-soc-wm8960-soundcard" /etc/modules || \
   
 #set dtoverlays
 sed -i -e 's:#dtparam=i2c_arm=on:dtparam=i2c_arm=on:g'  /boot/firmware/config.txt || true
+sed -i -e 's:#dtparam=i2s=on:dtparam=i2s=on:g'  /boot/firmware/config.txt || true
 grep -q "dtoverlay=i2s-mmap" /boot/firmware/config.txt || \
   echo "dtoverlay=i2s-mmap" >> /boot/firmware/config.txt
 
-grep -q "dtparam=i2s=on" /boot/firmware/config.txt || \
-  echo "dtparam=i2s=on" >> /boot/firmware/config.txt
+#grep -q "dtparam=i2s=on" /boot/firmware/config.txt || \
+#  echo "dtparam=i2s=on" >> /boot/firmware/config.txt
 
 grep -q "dtoverlay=wm8960-soundcard" /boot/firmware/config.txt || \
   echo "dtoverlay=wm8960-soundcard" >> /boot/firmware/config.txt
