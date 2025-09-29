@@ -50,7 +50,7 @@ function install_module {
 install_module "./" "wm8960-soundcard"
 
 # install dtbos
-#cp wm8960-soundcard.dtbo /boot/overlays
+cp wm8960-soundcard.dtbo /boot/overlays
 
 
 #set kernel moduels

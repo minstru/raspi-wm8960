@@ -1,12 +1,12 @@
 # raspi wm8960 driver
 
-This repository provides instructions on how to use the WM8960 audio module with Raspberry Pi.
+本仓库提供WM8960音频模块在树莓派上如何使用。
 
-For detailed information about the WM8960 module, please visit: [www.minstru.com/modules/wm8960/](https://www.minstru.com/modules/wm8960).
+关于WM8960模块的详细资料，请访问：[www.minstru.com/modules/wm8960/](https://www.minstru.com/modules/wm8960)。
 
-## Hardware Connection
+## 硬件连接
 
-Connect the development board to the WM8960 using jumper wires, including power lines, ground lines, I2C SDA, SCL, and I2S BCLK, DCLK, DAC, ADC. Refer to the following image for pin connections:
+将开发板与WM8960通过杜邦线进行引脚连接，包括电源线，接地线，IIC的SDA，SCL，IIS的BCLK,DCLK,DAC,ADC。可参考以下图片进行引脚的连接：
 
 ![image-20250829135619366](./image/image-20250829135619366.png)
 
@@ -21,31 +21,31 @@ Connect the development board to the WM8960 using jumper wires, including power 
 | GPIO20     | ADCDAT      | I2S Serial Data Input        |
 | GPIO21     | DACDAT      | I2S Serial Data Output       |
 
-## Update Software Sources
+## 更新软件源
 
 ```bash
 sudo apt-get -y update
 sudo apt-get -y upgrade
 ```
 
-## Download WM8960 Driver
+## 下载WM8960的驱动
 
-Two methods: one is online using git clone; the other is offline by downloading the compressed file, extracting it, and uploading it to the Raspberry Pi.
+两种办法：一种是在线的方式，使用git clone的方式；一种是离线的方式，将下载的压缩文件解压后上传到树莓派上。
 
 ```bash
-# Method 1: Using git clone
+# 方法一：使用git clone的方式
 git clone https://github.com/minstru/audio_wm8960
 
-# Method 2: Download the source code from GitHub in a browser, extract it, then upload (via SSH) to the Raspberry Pi
-# Assuming audio_wm8960 is downloaded in the ~/Downloads folder
-# Modify relevant file permissions
+#方法二：将github上的源码用浏览器中下载、解压，再上传（可以通过ssh的方式上传）到树莓派上
+# 假设audio_wm8960下载在~/Downloads文件夹下
+# 修改相关文件权限
 cd audio_wm8960/raspi_wm8960
 chmod +x install.sh
 chmod +x uninstall.sh
 chmod +x wm8960-soundcard
 ```
 
-## Install Driver
+## 安装驱动
 
 ```bash
 cd ~/Downloads/audio_wm8960/raspi_wm8960
@@ -54,14 +54,14 @@ sudo ./install.sh
 sudo reboot
 ```
 
-## Check if Driver Installation is Successful
+## 检查驱动是否安装成功
 
 ```bash
 vtino@raspberrypi:~ $ sudo dkms status
 wm8960-soundcard/1.0, 6.12.25+rpt-rpi-v7, armv7l: installed
 ```
 
-## Check Sound Card Devices
+## 检查声卡设备
 
 ```bash
 vtino@raspberrypi:~ $ aplay -l
@@ -90,17 +90,17 @@ card 1: wm8960soundcard [wm8960-soundcard], device 0: bcm2835-i2s-wm8960-hifi wm
   Subdevice #0: subdevice #0
 ```
 
-## Adjust Volume
+## 调整音量
 
-By default, the volume is relatively low, so adjustment is needed.
+默认情况下，音量比较小，所以需要调整音量
 
-Right-click the speaker icon and select `wm8960-soundcard` from the pop-up options; right-click the recording icon and select `wm8960-soundcard` from the pop-up options.
+右键点击小喇叭的图标，弹出的选项中选择`wm8960-soundcard`；右键点击录音的图标，弹出的选项中选择`wm8960-soundcard`;
 
 ![image-20250901134746158](./image/image-20250901134746158.png)
 
 ![image-20250901134959766](./image/image-20250901134959766.png)
 
-Enter the following command, and press `F6` in the pop-up interface to select the sound card device.
+输入如下命令，弹出界面按`F6`以选择声卡设备
 
 ```bash
 sudo alsamixer
@@ -110,25 +110,25 @@ sudo alsamixer
 
 ![image-20250901135337796](./image/image-20250901135337796.png)
 
-Use the arrow keys to select `wm8960-soundcard` and press Enter. You can see that the Headphone volume is currently 0.
+这里通过方向键选中`wm8960-soundcard`后回车。可以看到现在Headphone的音量为0
 
 ![image-20250901135514532](./image/image-20250901135514532.png)
 
-You can increase its volume:
+可以将其音量调大：
 
 ![image-20250901140737930](./image/image-20250901140737930.png)
 
 
 
-## Install MP3 Player: mpg123
+## 安装mp3播放器：mpg123
 
 ```bash
 sudo apt-get install mpg123 
 ```
 
-## Test Audio Playback
+## 测试播放音频
 
-Upload a test MP3 file to the Downloads folder, plug headphones into the WM8960 module's audio output jack. Play the MP3 using mpg123.
+上传一个测试用的mp3文件到Downloads文件夹下，将耳机传入WM8960模块的音频输出接口。通过mpg123播放mp3
 
 ```bash
 vtino@raspberrypi:~/Downloads $ ls
@@ -148,18 +148,18 @@ MPEG 1.0 L III cbr128 44100 stereo
 [1:49] Decoding of test.mp3 finished.
 ```
 
-If your installed system has a graphical interface, you can also play MP3s using VLC.
+如果你安装的系统是带有图形界面，也可以通过vlc播放mp3
 
 ![image-20250901141050843](./image/image-20250901141050843.png)
 
 ![image-20250901141128482](./image/image-20250901141128482.png)
 
-Open the corresponding MP3 file via Media->Open File... to play it.
+通过Media->Open File...打开相应的mp3即可播放。
 
-## Recording Test: Using the arecord Command
+## 录音测试：通过arecord命令
 
-- The parameters 1,0 after -Dhw correspond to sound card 1 and device 0
-- `CTRL+C` will stop the recording
+- -Dhw后面的参数1,0，对应的是声卡1和设备0
+- `CTRL+C`会停止录音
 
 ```bash
 vtino@raspberrypi:~/Downloads $ ls
@@ -179,25 +179,26 @@ vtino@raspberrypi:~/Downloads $
 
 ```
 
-This will create a `test.wav` file in the `Downloads` folder. You can play this `wav` file using `aplay`.
+这时在`Downloads`文件夹下会产生一个`test.wav`文件。可以通过`aplay`播放该`wav`文件
 
 ```bash
 vtino@raspberrypi:~/Downloads $ aplay test.wav
 Playing WAVE 'test.wav' : Signed 16 bit Little Endian, Rate 44100 Hz, Stereo
 ```
 
-## Loopback Playback
+## 回环播放
 
 ```
 arecord -f cd -Dhw:1,0 | aplay -Dhw:1,0
 ```
 
-You need to lower the playback volume slightly.
+需要将palyback的音量调小一些。
 
 ![image-20250901155301118](./image/image-20250901155301118.png)
 
-## Driver Uninstallation
+## 驱动卸载
 
 ```bash
 sudo ./unsintall.sh
 ```
+

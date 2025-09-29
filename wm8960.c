@@ -603,143 +603,7 @@ static const int bclk_divs[] = {
 	120, 160, 220, 240, 320, 320, 320
 };
 
-   
-																			
-									   
-									 
-									
-									 
-  
-															 
-															 
-														  
-  
-										  
-									
-												  
-										   
-											
-  
-		   
-												   
-																
-												   
-   
-	  
-																 
-													
- 
-						 
-			 
-						  
 
-						  
-				
-
-					 
-					   
-
-												  
-												
-						   
-			
-								 
-											  
-									 
-			 
-												
-											 
-					
-					 
-				  
-				   
-		   
-	 
-									 
-					 
-				  
-				   
-					
-	 
-	
-								  
-		  
-   
-								
-		 
-  
-				  
- 
-
-   
-																		  
-												  
-									
-										
-									
-  
-															  
-															  
-														   
-  
-								  
-															
-												  
-										   
-											
-  
-		   
-														
-																	  
-												   
-   
-	  
-																		  
-												 
- 
-																	   
-								   
-								  
-			 
-
-					 
-					   
-				   
-
-						 
-										 
-
-												
-						   
-			
-											  
-								
-									  
-
-												
-												  
-			  
-
-											 
-					
-					 
-				  
-				   
-					 
-	 
-									 
-					 
-				  
-				   
-					
-							  
-	 
-	
-   
-  
-
-					  
- 
 static int wm8960_configure_clocking(struct snd_soc_component *component)
 {
 	struct wm8960_priv *wm8960 = snd_soc_component_get_drvdata(component);
@@ -837,7 +701,7 @@ static int wm8960_configure_clocking(struct snd_soc_component *component)
 		dev_err(component->dev, "failed to configure clock\n");
 		return -EINVAL;
 	}
-											  
+
 
 configure_clock:
 	/* configure sysclk clock */
@@ -1494,6 +1358,8 @@ static int wm8960_i2c_probe(struct i2c_client *i2c)
 	regmap_update_bits(wm8960->regmap, WM8960_ROUT1, 0x100, 0x100);
 	regmap_update_bits(wm8960->regmap, WM8960_LOUT2, 0x100, 0x100);
 	regmap_update_bits(wm8960->regmap, WM8960_ROUT2, 0x100, 0x100);
+
+    regmap_update_bits(wm8960->regmap, WM8960_IFACE2, (0x01 << 6), (0X01 << 6));
 
 	i2c_set_clientdata(i2c, wm8960);
 
