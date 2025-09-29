@@ -34,12 +34,12 @@ Two methods: one is online using git clone; the other is offline by downloading 
 
 ```bash
 # Method 1: Using git clone
-git clone https://github.com/minstru/audio_wm8960
+git clone https://github.com/minstru/raspi_wm8960
 
 # Method 2: Download the source code from GitHub in a browser, extract it, then upload (via SSH) to the Raspberry Pi
 # Assuming audio_wm8960 is downloaded in the ~/Downloads folder
 # Modify relevant file permissions
-cd audio_wm8960/raspi_wm8960
+cd raspi_wm8960
 chmod +x install.sh
 chmod +x uninstall.sh
 chmod +x wm8960-soundcard
@@ -48,7 +48,7 @@ chmod +x wm8960-soundcard
 ## Install Driver
 
 ```bash
-cd ~/Downloads/audio_wm8960/raspi_wm8960
+cd ~/Downloads/raspi_wm8960
 sudo ./install.sh
 
 sudo reboot

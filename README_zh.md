@@ -34,12 +34,12 @@ sudo apt-get -y upgrade
 
 ```bash
 # 方法一：使用git clone的方式
-git clone https://github.com/minstru/audio_wm8960
+git clone https://github.com/minstru/raspi_wm8960
 
 #方法二：将github上的源码用浏览器中下载、解压，再上传（可以通过ssh的方式上传）到树莓派上
 # 假设audio_wm8960下载在~/Downloads文件夹下
 # 修改相关文件权限
-cd audio_wm8960/raspi_wm8960
+cd raspi_wm8960
 chmod +x install.sh
 chmod +x uninstall.sh
 chmod +x wm8960-soundcard
@@ -48,7 +48,7 @@ chmod +x wm8960-soundcard
 ## 安装驱动
 
 ```bash
-cd ~/Downloads/audio_wm8960/raspi_wm8960
+cd ~/Downloads/raspi_wm8960
 sudo ./install.sh
 
 sudo reboot
